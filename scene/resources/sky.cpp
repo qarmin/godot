@@ -30,6 +30,7 @@
 
 #include "sky.h"
 
+#include <iostream>
 #include "core/io/image_loader.h"
 
 void Sky::set_radiance_size(RadianceSize p_size) {
@@ -62,9 +63,13 @@ void Sky::_bind_methods() {
 }
 
 Sky::Sky() {
+	std::cout<<"\nCREATED SKY";
 	radiance_size = RADIANCE_SIZE_128;
 }
 
+Sky::~Sky() {
+	std::cout<<"\nDELETED SKY";
+}
 /////////////////////////////////////////
 
 void PanoramaSky::_radiance_changed() {
@@ -110,11 +115,13 @@ void PanoramaSky::_bind_methods() {
 
 PanoramaSky::PanoramaSky() {
 
+	std::cout<<"\nCREATE PROCEDURAL";
 	sky = VS::get_singleton()->sky_create();
 }
 
 PanoramaSky::~PanoramaSky() {
 
+	std::cout<<"\nDELETE PANORAMA";
 	VS::get_singleton()->free(sky);
 }
 //////////////////////////////////
@@ -538,6 +545,7 @@ void ProceduralSky::_bind_methods() {
 
 ProceduralSky::ProceduralSky(bool p_desaturate) {
 
+	std::cout<<"\nCREATE PROCEDURAL";
 	sky = VS::get_singleton()->sky_create();
 	texture = VS::get_singleton()->texture_create();
 
@@ -575,7 +583,7 @@ ProceduralSky::ProceduralSky(bool p_desaturate) {
 }
 
 ProceduralSky::~ProceduralSky() {
-
+	std::cout<<"\nDELETE PROCEDURAL";
 	if (sky_thread) {
 		Thread::wait_to_finish(sky_thread);
 		memdelete(sky_thread);

@@ -60,6 +60,7 @@ public:
 	void set_radiance_size(RadianceSize p_size);
 	RadianceSize get_radiance_size() const;
 	Sky();
+	~Sky();
 };
 
 VARIANT_ENUM_CAST(Sky::RadianceSize)

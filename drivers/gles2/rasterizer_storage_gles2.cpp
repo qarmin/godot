@@ -30,6 +30,7 @@
 
 #include "rasterizer_storage_gles2.h"
 
+#include <iostream>
 #include "core/math/transform.h"
 #include "core/project_settings.h"
 #include "rasterizer_canvas_gles2.h"
@@ -1125,6 +1126,7 @@ RID RasterizerStorageGLES2::texture_create_radiance_cubemap(RID p_source, int p_
 }
 
 RID RasterizerStorageGLES2::sky_create() {
+	std::cout<<"\nCREATE SKY RASTERIZERSTORAGE";
 	Sky *sky = memnew(Sky);
 	sky->radiance = 0;
 	return sky_owner.make_rid(sky);
@@ -5421,6 +5423,7 @@ bool RasterizerStorageGLES2::free(RID p_rid) {
 		return true;
 	} else if (sky_owner.owns(p_rid)) {
 
+		std::cout<<"\nDELETE SKY RASTERIZERSTORAGE";
 		Sky *sky = sky_owner.get(p_rid);
 		sky_set_texture(p_rid, RID(), 256);
 		sky_owner.free(p_rid);
