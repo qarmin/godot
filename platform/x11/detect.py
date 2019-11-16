@@ -145,8 +145,12 @@ def configure(env):
         env.extra_suffix += "s"
 
         if env['use_ubsan']:
-            env.Append(CCFLAGS=['-fsanitize=undefined'])
-            env.Append(LINKFLAGS=['-fsanitize=undefined'])
+            if env['use_llvm']:
+                env.Append(CCFLAGS=['-fsanitize=undefined,float-divide-by-zero,unsigned-integer-overflow,implicit-conversion,nullability'])
+                env.Append(LINKFLAGS=['-fsanitize=undefined,float-divide-by-zero,unsigned-integer-overflow,implicit-conversion,nullability'])
+            else:
+                env.Append(CCFLAGS=['-fsanitize=pointer-compare,pointer-subtract,builtin,pointer-overflow,vptr,enum,bool,returns-nonnull-attribute,nonnull-attribute,float-cast-overflow,float-divide-by-zero,object-size,bounds-strict,bounds,signed-integer-overflow,return,null,vla-bound,unreachable,integer-divide-by-zero,shift-base,shift-exponent,shift'])
+                env.Append(LINKFLAGS=['-fsanitize=pointer-compare,pointer-subtract,builtin,pointer-overflow,vptr,enum,bool,returns-nonnull-attribute,nonnull-attribute,float-cast-overflow,float-divide-by-zero,object-size,bounds-strict,bounds,signed-integer-overflow,return,null,vla-bound,unreachable,integer-divide-by-zero,shift-base,shift-exponent,shift'])
 
         if env['use_asan']:
             env.Append(CCFLAGS=['-fsanitize=address'])
@@ -171,7 +175,7 @@ def configure(env):
             else:
                 env.Append(CCFLAGS=['-flto'])
                 env.Append(LINKFLAGS=['-flto'])
-        
+
         if not env['use_llvm']:
             env['RANLIB'] = 'gcc-ranlib'
             env['AR'] = 'gcc-ar'
@@ -329,7 +333,7 @@ def configure(env):
 
     if env["execinfo"]:
         env.Append(LIBS=['execinfo'])
-        
+
     if not env['tools']:
         env.Append(LINKFLAGS=['-T', 'platform/x11/pck_embed.ld'])
 
