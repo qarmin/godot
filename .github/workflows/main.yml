@@ -40,7 +40,7 @@ jobs:
 
 
   ios-arm64:
-    runs-on: ios-arm64
+    runs-on: macos-latest
     name: ios ARM64
 
     steps:
@@ -54,8 +54,9 @@ jobs:
       run: |
       
         scons p=iphone arch=x86_64 target=debug
+
   ios-arm:
-    runs-on: ios-arm
+    runs-on: macos-latest
     name: ios ARM
 
     steps:
