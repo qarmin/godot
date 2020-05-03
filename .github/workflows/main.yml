@@ -8,35 +8,7 @@ on:
 
 jobs:
 
-
-  javascript:
-    runs-on: ubuntu-latest
-    name: Javascript
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Dependency installation
-      run: |
-        sudo apt update
-        sudo apt upgrade -y
-        
-        sudo apt install -y build-essential scons pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libudev-dev libxi-dev libxrandr-dev yasm
-        sudo apt install -y git
-        
-    - name: Change Python version
-      run: |
-        sudo rm /usr/bin/python
-        sudo ln -s /usr/bin/python3 /usr/bin/python
-
-    - name: Emsdk
-        git clone --depth 1 "https://github.com/emscripten-core/emsdk.git";
-        ./emsdk/emsdk install latest;
-        ./emsdk/emsdk activate latest;
-
-    - name: Compilation
-      run: |
-        scons platform=javascript tools=no target=release -j6 
+ 
 
 
   ios-arm64:
