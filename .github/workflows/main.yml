@@ -36,7 +36,7 @@ jobs:
 
     - name: Compilation
       run: |
-       scons platform=javascript tools=no target=release -j6 
+        scons platform=javascript tools=no target=release -j6 
 
 
   ios-arm64:
@@ -52,7 +52,6 @@ jobs:
 
     - name: Compilation
       run: |
-      
         scons p=iphone arch=x86_64 target=debug
 
   ios-arm:
@@ -68,5 +67,4 @@ jobs:
 
     - name: Compilation
       run: |
-      
         scons p=iphone tools=no target=release arch=arm
