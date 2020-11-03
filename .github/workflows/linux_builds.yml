@@ -20,6 +20,7 @@ jobs:
           sudo apt install xorg -y
           sudo apt-get install build-essential pkg-config libx11-dev libxcursor-dev libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libudev-dev libxi-dev libxrandr-dev yasm -y
           sudo apt install wget git unzip tar xvfb -y
+          sudo apt upgrade -y
 
       # Setup scons, print python version and scons version info, so if anything is broken it won't run the build.
       - name: Configuring Python packages
