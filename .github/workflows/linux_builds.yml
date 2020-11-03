@@ -26,6 +26,7 @@ jobs:
         run: |
           wget https://archive.hugo.pro/builds/godot/master/editor/godot-linux-nightly-x86_64.zip
           unzip godot-linux-nightly-x86_64.zip
-          
+
       - name: Run
+        run: |
           xvfb-run ./godot -q
