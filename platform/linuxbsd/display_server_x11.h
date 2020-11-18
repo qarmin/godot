@@ -31,6 +31,8 @@
 #ifndef DISPLAY_SERVER_X11_H
 #define DISPLAY_SERVER_X11_H
 
+#include "temp_gl_defines.h"
+
 #ifdef X11_ENABLED
 
 #include "servers/display_server.h"
@@ -47,7 +49,7 @@
 #include "servers/rendering_server.h"
 
 #if defined(OPENGL_ENABLED)
-#include "context_gl_x11.h"
+#include "gl_manager_x11.h"
 #endif
 
 #if defined(VULKAN_ENABLED)
@@ -96,7 +98,7 @@ class DisplayServerX11 : public DisplayServer {
 	int xdnd_version;
 
 #if defined(OPENGL_ENABLED)
-	ContextGL_X11 *context_gles2;
+	GLManager_X11 *gl_manager = nullptr;
 #endif
 #if defined(VULKAN_ENABLED)
 	VulkanContextX11 *context_vulkan;
@@ -313,6 +315,8 @@ public:
 
 	virtual int window_get_current_screen(WindowID p_window = MAIN_WINDOW_ID) const;
 	virtual void window_set_current_screen(int p_screen, WindowID p_window = MAIN_WINDOW_ID);
+
+	virtual void gl_window_make_current(DisplayServer::WindowID p_window_id);
 
 	virtual Point2i window_get_position(WindowID p_window = MAIN_WINDOW_ID) const;
 	virtual void window_set_position(const Point2i &p_position, WindowID p_window = MAIN_WINDOW_ID);

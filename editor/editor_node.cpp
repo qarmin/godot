@@ -6356,13 +6356,13 @@ EditorNode::EditorNode() {
 	video_driver->add_theme_font_override("font", gui_base->get_theme_font("bold", "EditorFonts"));
 	video_driver->add_theme_font_size_override("font_size", gui_base->get_theme_font_size("bold_size", "EditorFonts"));
 	// TODO re-enable when GLES2 is ported
-	video_driver->set_disabled(true);
+	//	video_driver->set_disabled(true);
 	right_menu_hb->add_child(video_driver);
 
 #ifndef _MSC_VER
 #warning needs to be reimplemented
 #endif
-#if 0
+	//#if 0
 	String video_drivers = ProjectSettings::get_singleton()->get_custom_property_info()["rendering/quality/driver/driver_name"].hint_string;
 	String current_video_driver = OS::get_singleton()->get_video_driver_name(OS::get_singleton()->get_current_video_driver());
 	video_driver_current = 0;
@@ -6378,7 +6378,7 @@ EditorNode::EditorNode() {
 	}
 
 	_update_video_driver_color();
-#endif
+	//#endif
 	video_restart_dialog = memnew(ConfirmationDialog);
 	video_restart_dialog->set_text(TTR("Changing the video driver requires restarting the editor."));
 	video_restart_dialog->get_ok_button()->set_text(TTR("Save & Restart"));

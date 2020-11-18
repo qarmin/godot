@@ -1184,7 +1184,7 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 	ProjectSettings::get_singleton()->set_custom_property_info("rendering/quality/driver/driver_name",
 			PropertyInfo(Variant::STRING,
 					"rendering/quality/driver/driver_name",
-					PROPERTY_HINT_ENUM, "Vulkan"));
+					PROPERTY_HINT_ENUM, "Vulkan,GLES2,GLES3"));
 	if (display_driver == "") {
 		display_driver = GLOBAL_GET("rendering/quality/driver/driver_name");
 	}
@@ -1314,10 +1314,17 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 
 	/* Determine audio and video drivers */
 
+	print_line("requested video driver : " + display_driver);
 	for (int i = 0; i < DisplayServer::get_create_function_count(); i++) {
-		if (display_driver == DisplayServer::get_create_function_name(i)) {
+		String name = DisplayServer::get_create_function_name(i);
+		print_line("\t" + itos(i) + " " + name);
+
+		OS::get_singleton()->add_video_driver_name(name);
+
+		if (display_driver == name) {
 			display_driver_idx = i;
-			break;
+			OS::get_singleton()->set_current_video_driver_id(i);
+			//break;
 		}
 	}
 
@@ -1540,7 +1547,9 @@ Error Main::setup2(Thread::ID p_main_tid_override) {
 
 	{
 		String rendering_driver; // temp broken
+		rendering_driver = DisplayServer::get_create_function_name(display_driver_idx);
 
+		print_line("creating video driver : " + rendering_driver);
 		Error err;
 		display_server = DisplayServer::create(display_driver_idx, rendering_driver, window_mode, window_flags, window_size, err);
 		if (err != OK || display_server == nullptr) {
