@@ -39,7 +39,7 @@
 #include <avrt.h>
 
 #if defined(OPENGL_ENABLED)
-//#include "drivers/gles2/rasterizer_wrapper_gles2.h"
+#include "drivers/gles2/rasterizer_gles2.h"
 #endif
 
 #ifdef DEBUG_ENABLED
