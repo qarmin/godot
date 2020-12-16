@@ -31,6 +31,7 @@
 //#define GLES2_DISABLE_RENDER_TARGETS
 
 #include "rasterizer_storage_gles2.h"
+#ifdef GLES2_BACKEND_ENABLED
 
 #include "core/config/project_settings.h"
 #include "core/math/transform.h"
@@ -3917,3 +3918,5 @@ RasterizerStorageGLES2::RasterizerStorageGLES2() {
 	RasterizerStorageGLES2::system_fbo = 0;
 	config.should_orphan = true;
 }
+
+#endif // GLES2_BACKEND_ENABLED

@@ -29,6 +29,7 @@
 /*************************************************************************/
 
 #include "shader_compiler_gles2.h"
+#ifdef GLES2_BACKEND_ENABLED
 
 #include "core/os/os.h"
 
@@ -1118,4 +1119,4 @@ ShaderCompilerGLES2::ShaderCompilerGLES2() {
 	}
 }
 
-//#endif // godot 3
+#endif // GLES2_BACKEND_ENABLED

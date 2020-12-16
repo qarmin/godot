@@ -29,6 +29,8 @@
 /*************************************************************************/
 
 #include "rasterizer_gles2.h"
+
+#ifdef GLES2_BACKEND_ENABLED
 #include "shader_gles2.h"
 
 #include "core/config/project_settings.h"
@@ -276,3 +278,5 @@ void RasterizerGLES2::blit_render_targets_to_screen(DisplayServer::WindowID p_sc
 		_blit_render_target_to_screen(rid_rt, blit.rect);
 	}
 }
+
+#endif // GLES2_BACKEND_ENABLED

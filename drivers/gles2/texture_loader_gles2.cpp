@@ -29,6 +29,7 @@
 /*************************************************************************/
 
 #include "texture_loader_gles2.h"
+#ifdef GLES2_BACKEND_ENABLED
 
 #include "core/os/file_access.h"
 #include "core/string/print_string.h"
@@ -107,3 +108,5 @@ String ResourceFormatGLES2Texture::get_resource_type(const String &p_path) const
 
 	return "";
 }
+
+#endif

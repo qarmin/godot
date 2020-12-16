@@ -31,6 +31,9 @@
 #ifndef RASTERIZERSTORAGEGLES2_H
 #define RASTERIZERSTORAGEGLES2_H
 
+#include "drivers/gles_common/rasterizer_platforms.h"
+#ifdef GLES2_BACKEND_ENABLED
+
 #include "core/templates/local_vector.h"
 #include "core/templates/rid_owner.h"
 #include "core/templates/self_list.h"
@@ -970,4 +973,5 @@ inline void RasterizerStorageGLES2::buffer_orphan_and_upload(unsigned int p_buff
 	glBufferSubData(p_target, p_offset, p_data_size, p_data);
 }
 
+#endif // GLES2_BACKEND_ENABLED
 #endif // RASTERIZERSTORAGEGLES2_H

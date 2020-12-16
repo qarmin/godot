@@ -28,14 +28,13 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
 /*************************************************************************/
 
-#ifndef CONTEXT_GL_X11_H
-#define CONTEXT_GL_X11_H
-
-#include "temp_gl_defines.h"
+#pragma once
 
 #ifdef X11_ENABLED
 
-#if defined(OPENGL_ENABLED)
+#include "drivers/gles_common/rasterizer_platforms.h"
+
+#if defined(GLES_X11_ENABLED)
 
 #include "core/os/os.h"
 #include "core/templates/local_vector.h"
@@ -132,7 +131,5 @@ public:
 	~GLManager_X11();
 };
 
-#endif
-
-#endif
-#endif
+#endif // GLES_X11_ENABLED
+#endif // X11_ENABLED

@@ -29,6 +29,7 @@
 /*************************************************************************/
 
 #include "rasterizer_scene_gles2.h"
+#ifdef GLES2_BACKEND_ENABLED
 
 #ifdef GODOT_3
 
@@ -3950,3 +3951,5 @@ RasterizerSceneGLES2::RasterizerSceneGLES2() {
 }
 
 #endif // godot 3
+
+#endif // GLES2_BACKEND_ENABLED

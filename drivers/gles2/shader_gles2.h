@@ -30,6 +30,9 @@
 
 #pragma once
 
+#include "drivers/gles_common/rasterizer_platforms.h"
+#ifdef GLES2_BACKEND_ENABLED
+
 // This must come first to avoid windows.h mess
 #include "platform_config.h"
 #ifndef GLES2_INCLUDE_H
@@ -275,4 +278,4 @@ void ShaderGLES2::_set_conditional(int p_which, bool p_value) {
 		new_conditional_version.version &= ~(1 << p_which);
 }
 
-//#endif // godot 3
+#endif // GLES2_BACKEND_ENABLED

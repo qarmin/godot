@@ -30,11 +30,9 @@
 
 #pragma once
 
-#include "temp_gl_defines.h"
-
 #ifdef WINDOWS_ENABLED
 
-#if defined(OPENGL_ENABLED) || defined(GLES_ENABLED)
+#ifdef GLES_WINDOWS_ENABLED
 
 #include "core/error/error_list.h"
 #include "core/os/os.h"

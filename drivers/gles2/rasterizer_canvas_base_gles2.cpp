@@ -29,6 +29,7 @@
 /*************************************************************************/
 
 #include "rasterizer_canvas_base_gles2.h"
+#ifdef GLES2_BACKEND_ENABLED
 
 #include "core/os/os.h"
 #include "drivers/gles_common/rasterizer_asserts.h"
@@ -1206,3 +1207,5 @@ void RasterizerCanvasBaseGLES2::finalize() {
 
 RasterizerCanvasBaseGLES2::RasterizerCanvasBaseGLES2() {
 }
+
+#endif

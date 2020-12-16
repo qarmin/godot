@@ -31,8 +31,6 @@
 #ifndef DISPLAY_SERVER_WINDOWS_H
 #define DISPLAY_SERVER_WINDOWS_H
 
-#include "temp_gl_defines.h"
-
 #include "servers/display_server.h"
 
 #include "core/config/project_settings.h"
@@ -58,7 +56,7 @@
 #include "platform/windows/vulkan_context_win.h"
 #endif
 
-#if defined(OPENGL_ENABLED)
+#if defined(GLES_WINDOWS_ENABLED)
 #include "gl_manager_windows.h"
 #endif
 
@@ -305,7 +303,7 @@ private:
 	int old_x, old_y;
 	Point2i center;
 
-#if defined(OPENGL_ENABLED)
+#if defined(GLES_WINDOWS_ENABLED)
 	GLManager_Windows *gl_manager;
 #endif
 

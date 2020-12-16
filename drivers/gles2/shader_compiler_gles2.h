@@ -30,7 +30,8 @@
 
 #pragma once
 
-//#ifdef GODOT_3
+#include "drivers/gles_common/rasterizer_platforms.h"
+#ifdef GLES2_BACKEND_ENABLED
 
 #include "drivers/gles_common/rasterizer_version.h"
 #ifdef GODOT_3
@@ -108,4 +109,4 @@ public:
 	ShaderCompilerGLES2();
 };
 
-//#endif // godot 3
+#endif // GLES2_BACKEND_ENABLED

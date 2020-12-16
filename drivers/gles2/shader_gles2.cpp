@@ -29,6 +29,7 @@
 /*************************************************************************/
 
 #include "shader_gles2.h"
+#ifdef GLES2_BACKEND_ENABLED
 
 #include "core/os/memory.h"
 #include "rasterizer_gles2.h"
@@ -1126,4 +1127,4 @@ ShaderGLES2::~ShaderGLES2() {
 	finish();
 }
 
-//#endif // godot 3
+#endif // GLES2_BACKEND_ENABLED

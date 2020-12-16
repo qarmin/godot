@@ -31,6 +31,9 @@
 #pragma once
 // dummy
 
+#include "drivers/gles_common/rasterizer_platforms.h"
+#ifdef GLES2_BACKEND_ENABLED
+
 #include "core/math/camera_matrix.h"
 #include "core/templates/rid_owner.h"
 #include "core/templates/self_list.h"
@@ -786,3 +789,5 @@ public:
 };
 
 #endif // godot 3
+
+#endif // GLES2_BACKEND_ENABLED

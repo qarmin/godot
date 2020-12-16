@@ -46,7 +46,7 @@
 
 #include <limits.h>
 
-#if defined(OPENGL_ENABLED)
+#if defined(GLES_X11_ENABLED)
 #include "drivers/gles2/rasterizer_gles2.h"
 #endif
 
@@ -882,7 +882,7 @@ void DisplayServerX11::delete_sub_window(WindowID p_id) {
 		context_vulkan->window_destroy(p_id);
 	}
 #endif
-#ifdef OPENGL_ENABLED
+#ifdef GLES_X11_ENABLED
 	if (gl_manager) {
 		gl_manager->window_destroy(p_id);
 	}
@@ -1048,7 +1048,7 @@ int DisplayServerX11::window_get_current_screen(WindowID p_window) const {
 }
 
 void DisplayServerX11::gl_window_make_current(DisplayServer::WindowID p_window_id) {
-#if defined(OPENGL_ENABLED)
+#if defined(GLES_X11_ENABLED)
 	if (gl_manager)
 		gl_manager->window_make_current(p_window_id);
 #endif
@@ -2622,7 +2622,7 @@ void DisplayServerX11::_window_changed(XEvent *event) {
 		context_vulkan->window_resize(window_id, wd.size.width, wd.size.height);
 	}
 #endif
-#if defined(OPENGL_ENABLED)
+#if defined(GLES_X11_ENABLED)
 	if (gl_manager) {
 		gl_manager->window_resize(window_id, wd.size.width, wd.size.height);
 	}
@@ -3497,19 +3497,19 @@ void DisplayServerX11::process_events() {
 }
 
 void DisplayServerX11::release_rendering_thread() {
-#if defined(OPENGL_ENABLED)
+#if defined(GLES_X11_ENABLED)
 //	gl_manager->release_current();
 #endif
 }
 
 void DisplayServerX11::make_rendering_thread() {
-#if defined(OPENGL_ENABLED)
+#if defined(GLES_X11_ENABLED)
 //	gl_manager->make_current();
 #endif
 }
 
 void DisplayServerX11::swap_buffers() {
-#if defined(OPENGL_ENABLED)
+#if defined(GLES_X11_ENABLED)
 	if (gl_manager) {
 		gl_manager->swap_buffers();
 	}
@@ -3658,7 +3658,7 @@ Vector<String> DisplayServerX11::get_rendering_drivers_func() {
 #ifdef VULKAN_ENABLED
 	drivers.push_back("vulkan");
 #endif
-#ifdef OPENGL_ENABLED
+#ifdef GLES_X11_ENABLED
 	//	drivers.push_back("opengl");
 	drivers.push_back("GLES2");
 	drivers.push_back("GLES3");
@@ -3845,7 +3845,7 @@ DisplayServerX11::WindowID DisplayServerX11::_create_window(WindowMode p_mode, u
 			ERR_FAIL_COND_V_MSG(err != OK, INVALID_WINDOW_ID, "Can't create a Vulkan window");
 		}
 #endif
-#ifdef OPENGL_ENABLED
+#ifdef GLES_X11_ENABLED
 		print_line("rendering_driver " + rendering_driver);
 		if (gl_manager) {
 			Error err = gl_manager->window_create(id, wd.x11_window, x11_display, p_rect.size.width, p_rect.size.height);
@@ -4047,6 +4047,7 @@ DisplayServerX11::DisplayServerX11(const String &p_rendering_driver, WindowMode 
 	//	rendering_driver = "vulkan";
 	//rendering_driver = "GLES2";
 
+	bool driver_found = false;
 #if defined(VULKAN_ENABLED)
 	if (rendering_driver == "vulkan") {
 		context_vulkan = memnew(VulkanContextX11);
@@ -4056,10 +4057,11 @@ DisplayServerX11::DisplayServerX11(const String &p_rendering_driver, WindowMode 
 			r_error = ERR_CANT_CREATE;
 			ERR_FAIL_MSG("Could not initialize Vulkan");
 		}
+		driver_found = true;
 	}
 #endif
 	// Init context and rendering device
-#if defined(OPENGL_ENABLED)
+#if defined(GLES_X11_ENABLED)
 	print_line("rendering_driver " + rendering_driver);
 	if (rendering_driver == "GLES2") {
 		if (getenv("DRI_PRIME") == nullptr) {
@@ -4110,6 +4112,7 @@ DisplayServerX11::DisplayServerX11(const String &p_rendering_driver, WindowMode 
 			r_error = ERR_UNAVAILABLE;
 			return;
 		}
+		driver_found = true;
 
 		//		gl_manager->set_use_vsync(current_videomode.use_vsync);
 
@@ -4125,6 +4128,11 @@ DisplayServerX11::DisplayServerX11(const String &p_rendering_driver, WindowMode 
 		}
 	}
 #endif
+	if (!driver_found) {
+		r_error = ERR_UNAVAILABLE;
+		ERR_FAIL_MSG("Video driver not found");
+	}
+
 	Point2i window_position(
 			(screen_get_size(0).width - p_resolution.width) / 2,
 			(screen_get_size(0).height - p_resolution.height) / 2);
@@ -4341,7 +4349,7 @@ DisplayServerX11::~DisplayServerX11() {
 			context_vulkan->window_destroy(E->key());
 		}
 #endif
-#ifdef OPENGL_ENABLED
+#ifdef GLES_X11_ENABLED
 		if (rendering_driver == "GLES2") {
 			gl_manager->window_destroy(E->key());
 		}
@@ -4370,7 +4378,7 @@ DisplayServerX11::~DisplayServerX11() {
 	}
 #endif
 
-#ifdef OPENGL_ENABLED
+#ifdef GLES_X11_ENABLED
 	if (gl_manager) {
 		memdelete(gl_manager);
 		gl_manager = nullptr;
