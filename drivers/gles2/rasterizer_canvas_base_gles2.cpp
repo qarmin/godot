@@ -116,7 +116,7 @@ void RasterizerCanvasBaseGLES2::canvas_begin() {
 		// not clearing everything can be devastating on tiled renderers especially,
 		// because if anything is preserved, often the whole frame buffer needs to be preserved.
 		// Not sure if GL_ACCUM_BUFFER_BIT is needed or supported in GLES.
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_ACCUM_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		storage->frame.current_rt->clear_requested = false;
 	}
 

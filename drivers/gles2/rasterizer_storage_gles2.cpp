@@ -2828,7 +2828,7 @@ void RasterizerStorageGLES2::render_target_set_external_texture(RID p_render_tar
 
 		// Switch our texture on our frame buffer
 #if ANDROID_ENABLED
-		if (rt->msaa >= GD_VS::VIEWPORT_MSAA_EXT_2X && rt->msaa <= GD_VS::VIEWPORT_MSAA_EXT_4X) {
+		if (rt->msaa >= GD_VS::VIEWPORT_MSAA_2X && rt->msaa <= GD_VS::VIEWPORT_MSAA_4X) {
 			// This code only applies to the Oculus Go and Oculus Quest. Due to the the tiled nature
 			// of the GPU we can do a single render pass by rendering directly into our texture chains
 			// texture and apply MSAA as we render.
@@ -2837,7 +2837,7 @@ void RasterizerStorageGLES2::render_target_set_external_texture(RID p_render_tar
 			// the normal MSAA modes need to be used to enable our two pass approach
 
 			static const int msaa_value[] = { 2, 4 };
-			int msaa = msaa_value[rt->msaa - GD_VS::VIEWPORT_MSAA_EXT_2X];
+			int msaa = msaa_value[rt->msaa - GD_VS::VIEWPORT_MSAA_2X];
 
 			if (rt->external.depth == 0) {
 				// create a multisample depth buffer, we're not reusing Godots because Godot's didn't get created..
