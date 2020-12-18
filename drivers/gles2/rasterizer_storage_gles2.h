@@ -386,7 +386,7 @@ public:
 	Ref<Image> texture_2d_layer_get(RID p_texture, int p_layer) const override { return Ref<Image>(); }
 	Vector<Ref<Image>> texture_3d_get(RID p_texture) const override { return Vector<Ref<Image>>(); }
 
-	void texture_replace(RID p_texture, RID p_by_texture) override {}
+	void texture_replace(RID p_texture, RID p_by_texture) override;
 	//void texture_set_size_override(RID p_texture, int p_width, int p_height) override {}
 
 	void texture_add_to_decal_atlas(RID p_texture, bool p_panorama_to_dp = false) override {}

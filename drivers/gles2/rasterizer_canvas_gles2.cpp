@@ -656,7 +656,6 @@ void RasterizerCanvasGLES2::render_batches(Item::Command *const *p_commands, Ite
 							state.canvas_shader.set_conditional(CanvasShaderGLES2::USE_FORCE_REPEAT, false);
 
 						} break;
-#if 0
 						case Item::Command::TYPE_NINEPATCH: {
 							Item::CommandNinePatch *np = static_cast<Item::CommandNinePatch *>(command);
 
@@ -669,7 +668,9 @@ void RasterizerCanvasGLES2::render_batches(Item::Command *const *p_commands, Ite
 							glDisableVertexAttribArray(GD_VS::ARRAY_COLOR);
 							glVertexAttrib4fv(GD_VS::ARRAY_COLOR, np->color.components);
 
-							RasterizerStorageGLES2::Texture *tex = _bind_canvas_texture(np->texture, np->normal_map);
+							// FTODO
+							//RasterizerStorageGLES2::Texture *tex = _bind_canvas_texture(np->texture, np->normal_map);
+							RasterizerStorageGLES2::Texture *tex = _bind_canvas_texture(np->texture, RID());
 
 							if (!tex) {
 								// FIXME: Handle textureless ninepatch gracefully
@@ -829,7 +830,7 @@ void RasterizerCanvasGLES2::render_batches(Item::Command *const *p_commands, Ite
 							storage->info.render._2d_draw_call_count++;
 
 						} break;
-
+#if 0
 						case Item::Command::TYPE_CIRCLE: {
 							Item::CommandCircle *circle = static_cast<Item::CommandCircle *>(command);
 

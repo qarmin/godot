@@ -616,6 +616,9 @@ Ref<Image> RasterizerStorageGLES2::texture_2d_get(RID p_texture) const {
 	//	return Ref<Image>();
 }
 
+void RasterizerStorageGLES2::texture_replace(RID p_texture, RID p_by_texture) {
+}
+
 RID RasterizerStorageGLES2::texture_create() {
 	Texture *texture = memnew(Texture);
 	ERR_FAIL_COND_V(!texture, RID());
@@ -675,48 +678,56 @@ void RasterizerStorageGLES2::texture_allocate(RID p_texture, int p_width, int p_
 		}
 	}
 
-	//	if (p_type != GD_VS::TEXTURE_TYPE_EXTERNAL) {
-	//		texture->alloc_width = texture->width;
-	//		texture->alloc_height = texture->height;
-	//		texture->resize_to_po2 = false;
-	//		if (!config.support_npot_repeat_mipmap) {
-	//			int po2_width = next_power_of_2(p_width);
-	//			int po2_height = next_power_of_2(p_height);
+#if 0
+	//		if (p_type != GD_VS::TEXTURE_TYPE_EXTERNAL) {
+	if (p_type == GD_RD::TEXTURE_TYPE_2D) {
+		texture->alloc_width = texture->width;
+		texture->alloc_height = texture->height;
+		texture->resize_to_po2 = false;
+		if (!config.support_npot_repeat_mipmap) {
+			int po2_width = next_power_of_2(p_width);
+			int po2_height = next_power_of_2(p_height);
 
-	//			bool is_po2 = p_width == po2_width && p_height == po2_height;
+			bool is_po2 = p_width == po2_width && p_height == po2_height;
 
-	//			if (!is_po2 && (p_flags & TEXTURE_FLAG_REPEAT || p_flags & TEXTURE_FLAG_MIPMAPS)) {
-	//				if (p_flags & TEXTURE_FLAG_USED_FOR_STREAMING) {
-	//					//not supported
-	//					ERR_PRINT("Streaming texture for non power of 2 or has mipmaps on this hardware: " + texture->path + "'. Mipmaps and repeat disabled.");
-	//					texture->flags &= ~(TEXTURE_FLAG_REPEAT | TEXTURE_FLAG_MIPMAPS);
-	//				} else {
-	//					texture->alloc_height = po2_height;
-	//					texture->alloc_width = po2_width;
-	//					texture->resize_to_po2 = true;
-	//				}
-	//			}
-	//		}
+			if (!is_po2 && (p_flags & TEXTURE_FLAG_REPEAT || p_flags & TEXTURE_FLAG_MIPMAPS)) {
+				if (p_flags & TEXTURE_FLAG_USED_FOR_STREAMING) {
+					//not supported
+					ERR_PRINT("Streaming texture for non power of 2 or has mipmaps on this hardware: " + texture->path + "'. Mipmaps and repeat disabled.");
+					texture->flags &= ~(TEXTURE_FLAG_REPEAT | TEXTURE_FLAG_MIPMAPS);
+				} else {
+					texture->alloc_height = po2_height;
+					texture->alloc_width = po2_width;
+					texture->resize_to_po2 = true;
+				}
+			}
+		}
 
-	//		Image::Format real_format;
-	//		_get_gl_image_and_format(Ref<Image>(),
-	//				texture->format,
-	//				texture->flags,
-	//				real_format,
-	//				format,
-	//				internal_format,
-	//				type,
-	//				compressed,
-	//				texture->resize_to_po2);
+		GLenum format;
+		GLenum internal_format;
+		GLenum type;
+		bool compressed = false;
 
-	//		texture->gl_format_cache = format;
-	//		texture->gl_type_cache = type;
-	//		texture->gl_internal_format_cache = internal_format;
-	//		texture->data_size = 0;
-	//		texture->mipmaps = 1;
+		Image::Format real_format;
+		_get_gl_image_and_format(Ref<Image>(),
+				texture->format,
+				texture->flags,
+				real_format,
+				format,
+				internal_format,
+				type,
+				compressed,
+				texture->resize_to_po2);
 
-	//		texture->compressed = compressed;
-	//	}
+		texture->gl_format_cache = format;
+		texture->gl_type_cache = type;
+		texture->gl_internal_format_cache = internal_format;
+		texture->data_size = 0;
+		texture->mipmaps = 1;
+
+		texture->compressed = compressed;
+	}
+#endif
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(texture->target, texture->tex_id);
