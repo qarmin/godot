@@ -396,6 +396,8 @@ public:
 		return mesh_owner.make_rid(mesh);
 	}
 
+	void mesh_set_blend_shape_count(RID p_mesh, int p_blend_shape_count) override {}
+
 	void mesh_add_surface(RID p_mesh, const RS::SurfaceData &p_surface) override {}
 
 #if 0
@@ -525,6 +527,16 @@ public:
 
 	AABB mesh_get_aabb(RID p_mesh, RID p_skeleton = RID()) override { return AABB(); }
 	void mesh_clear(RID p_mesh) override {}
+
+	bool mesh_needs_instance(RID p_mesh, bool p_has_skeleton) override { return false; }
+
+	/* MESH INSTANCE */
+
+	RID mesh_instance_create(RID p_base) override { return RID(); }
+	void mesh_instance_set_skeleton(RID p_mesh_instance, RID p_skeleton) override {}
+	void mesh_instance_set_blend_shape_weight(RID p_mesh_instance, int p_shape, float p_weight) override {}
+	void mesh_instance_check_for_update(RID p_mesh_instance) override {}
+	void update_mesh_instances() override {}
 
 	/* MULTIMESH API */
 

@@ -155,14 +155,6 @@ void OS::vibrate_handheld(int p_duration_ms) {
 	WARN_PRINT("vibrate_handheld() only works with Android and iOS");
 }
 
-void OS::add_video_driver_name(String p_driver_name) {
-	video_drivers.push_back(p_driver_name);
-}
-
-void OS::set_current_video_driver_id(int p_driver_id) {
-	current_video_driver_id = p_driver_id;
-}
-
 bool OS::is_stdout_verbose() const {
 	return _verbose_stdout;
 }

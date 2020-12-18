@@ -4409,10 +4409,7 @@ DisplayServerX11::~DisplayServerX11() {
 }
 
 void DisplayServerX11::register_x11_driver() {
-	//	register_create_function("x11", create_func, get_rendering_drivers_func);
-	register_create_function("vulkan", create_func, get_rendering_drivers_func);
-	register_create_function("GLES2", create_func, get_rendering_drivers_func);
-	register_create_function("GLES3", create_func, get_rendering_drivers_func);
+	register_create_function("x11", create_func, get_rendering_drivers_func);
 }
 
 #endif // X11 enabled
