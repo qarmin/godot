@@ -101,8 +101,8 @@ class DisplayServerX11 : public DisplayServer {
 	GLManager_X11 *gl_manager = nullptr;
 #endif
 #if defined(VULKAN_ENABLED)
-	VulkanContextX11 *context_vulkan;
-	RenderingDeviceVulkan *rendering_device_vulkan;
+	VulkanContextX11 *context_vulkan = nullptr;
+	RenderingDeviceVulkan *rendering_device_vulkan = nullptr;
 #endif
 
 	struct WindowData {
