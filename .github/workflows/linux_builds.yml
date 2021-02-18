@@ -96,6 +96,7 @@ jobs:
           sudo apt-get install build-essential pkg-config libx11-dev libxcursor-dev \
             libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libudev-dev libxi-dev libxrandr-dev yasm \
             xvfb wget2 unzip
+          sudo apt-get install mesa-utils
 
       # Upload cache on completion and check it out now
       - name: Load .scons_cache directory
@@ -125,6 +126,7 @@ jobs:
           python -m pip install scons
           python --version
           scons --version
+          glxinfo | grep OpenGL
 
       # We should always be explicit with our flags usage here since it's gonna be sure to always set those flags
       - name: Compilation
@@ -172,7 +174,6 @@ jobs:
       # Install all packages (except scons)
       - name: Configure dependencies
         run: |
-          sudo apt-get install mesa-utils
           sudo apt-get install build-essential pkg-config libx11-dev libxcursor-dev \
             libxinerama-dev libgl1-mesa-dev libglu-dev libasound2-dev libpulse-dev libudev-dev libxi-dev libxrandr-dev yasm
 
@@ -204,7 +205,6 @@ jobs:
           python -m pip install scons
           python --version
           scons --version
-          glxinfo | grep OpenGL
 
       - name: Compilation
         env:
