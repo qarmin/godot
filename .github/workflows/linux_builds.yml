@@ -203,6 +203,7 @@ jobs:
           python -m pip install scons
           python --version
           scons --version
+          glxinfo | grep OpenGL
 
       - name: Compilation
         env:
